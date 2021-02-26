@@ -9,6 +9,9 @@ using Park.API.Helpers;
 using Park.Core.Interfaces;
 using Park.Infra.Data;
 using Park.Infra.Repository;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Park.API
 {
@@ -30,7 +33,26 @@ namespace Park.API
             services.AddAutoMapper(typeof(AutoMapperPark));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Park.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                {
+                    Version = "v1",                   
+                    Title = "Park.API",
+                    Description = "Park App ASP.NET Core Web API",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "ydv.dh@gmail.com",
+                        Name = "ydv dh",
+                        Url = new Uri("https://wwww.ydv.com")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "IT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/IT_License")
+                    }
+                });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var cmlCommentFullpath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                c.IncludeXmlComments(cmlCommentFullpath);
             });
         }
 
@@ -40,11 +62,12 @@ namespace Park.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Park.API v1"));
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Park.API v1"));
 
             app.UseRouting();
 
