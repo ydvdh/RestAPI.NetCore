@@ -10,6 +10,7 @@ namespace Park.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class NationalParkController : ControllerBase
     {
         private readonly INationalParkRepository _parkRepository;

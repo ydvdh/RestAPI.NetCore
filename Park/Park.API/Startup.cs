@@ -51,6 +51,24 @@ namespace Park.API
                         Url = new Uri("https://en.wikipedia.org/wiki/IT_License")
                     }
                 });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Trail.API",
+                    Description = "Trail App ASP.NET Core Web API",
+                    Contact = new OpenApiContact()
+                    {
+                        Email = "ydv.dh@gmail.com",
+                        Name = "ydv dh",
+                        Url = new Uri("https://wwww.ydv.com")
+                    },
+                    License = new OpenApiLicense()
+                    {
+                        Name = "IT License",
+                        Url = new Uri("https://en.wikipedia.org/wiki/IT_License")
+                    }
+                });
+
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var cmlCommentFullpath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 c.IncludeXmlComments(cmlCommentFullpath);
@@ -69,6 +87,7 @@ namespace Park.API
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Park.API v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trail.API v1"));
 
             app.UseRouting();
 

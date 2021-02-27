@@ -14,6 +14,7 @@ namespace Park.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "1")]
     public class TrailsController : ControllerBase
     {
         private readonly ITrialRepository _trialRepository;
