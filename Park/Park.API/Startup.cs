@@ -30,6 +30,7 @@ namespace Park.API
             services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
+            services.AddScoped<ITrialRepository, TrialRepository>();
             services.AddAutoMapper(typeof(AutoMapperPark));
             services.AddSwaggerGen(c =>
             {

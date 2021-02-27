@@ -39,5 +39,18 @@
             <param name="nationalParkId">ID of national park to delete</param>
             <returns></returns>
         </member>
+        <member name="M:Park.API.Controllers.TrailsController.GetTrails">
+            <summary>
+            Get list of trails.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Park.API.Controllers.TrailsController.GetTrail(System.Int32)">
+            <summary>
+            Get individual trail
+            </summary>
+            <param name="trailId"> The id of the trail </param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
