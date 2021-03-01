@@ -20,7 +20,7 @@ namespace Park.Web.Repository
             _clientFactory = clientFactory;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(string url, string token="")
+        public async Task<IEnumerable<T>> GetAllAsync(string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -34,7 +34,7 @@ namespace Park.Web.Repository
             return null;
         }
 
-        public async Task<T> GetAsync(string url, int Id, string token)
+        public async Task<T> GetAsync(string url, int Id)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url + Id);
 
@@ -48,7 +48,7 @@ namespace Park.Web.Repository
             return null;
         }
 
-        public async Task<bool> CreateAsync(string url, T objToCreate, string token)
+        public async Task<bool> CreateAsync(string url, T objToCreate)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             if (objToCreate != null)
@@ -71,7 +71,7 @@ namespace Park.Web.Repository
                 return false;
             }
         }
-        public async Task<bool> UpdateAsync(string url, T objToUpdate, string token)
+        public async Task<bool> UpdateAsync(string url, T objToUpdate)
         {
             var request = new HttpRequestMessage(HttpMethod.Patch, url);
             if (objToUpdate != null)
@@ -95,7 +95,7 @@ namespace Park.Web.Repository
             }
         }
 
-        public async Task<bool> DeleteAsync(string url, int Id, string token)
+        public async Task<bool> DeleteAsync(string url, int Id)
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, url + Id);
 
