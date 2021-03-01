@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Park.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/nationalpark")]
+    //[Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "v1")]
+    //[ApiExplorerSettings(GroupName = "v1")]
     public class NationalParkController : ControllerBase
     {
         private readonly INationalParkRepository _parkRepository;
@@ -102,7 +103,8 @@ namespace Park.API.Controllers
                 ModelState.AddModelError("",$"Something went wrong while saving {nationalParkObj.Name}");
                 return StatusCode(500, ModelState);
             }
-            return CreatedAtRoute("GetNationalPark", new { nationalParkId = nationalParkObj.Id}, nationalParkObj);
+            return CreatedAtRoute("GetNationalPark", new { version=HttpContext.GetRequestedApiVersion().ToString(), 
+                                                           nationalParkId = nationalParkObj.Id}, nationalParkObj);
         }
 
         /// <summary>

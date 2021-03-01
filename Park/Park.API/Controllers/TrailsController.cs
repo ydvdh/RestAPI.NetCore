@@ -12,9 +12,10 @@ using System.Threading.Tasks;
 
 namespace Park.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/trails")]
+    //[Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "1")]
+    //[ApiExplorerSettings(GroupName = "1")]
     public class TrailsController : ControllerBase
     {
         private readonly ITrialRepository _trialRepository;
