@@ -4,11 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Park.API.DTOs;
 using Park.Core.Interfaces;
 using Park.Core.Models;
-using Park.Infra.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Park.API.Controllers
 {
@@ -128,7 +124,6 @@ namespace Park.API.Controllers
             }
             return NoContent();
         }
-
 
         [HttpDelete("{trailId:int}", Name = "DeleteTrail")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

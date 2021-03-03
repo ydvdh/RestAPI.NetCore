@@ -12,6 +12,7 @@ namespace Park.API.DTOs
 
         [Required]
         public double Distance { get; set; }
+        public double Elevation { get; set; }
         public DifficultyType Difficulty { get; set; }
 
         [Required]

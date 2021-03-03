@@ -2,7 +2,7 @@
 
 namespace Park.Web.Repository.Interfaces
 {
-    interface ITrailRepository : IRepository<Trail>
+    public interface ITrailRepository : IRepository<Trail>
     {
     }
 }
