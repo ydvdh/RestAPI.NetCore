@@ -25,7 +25,16 @@ namespace Park.Infra.Repository
         }
         public User Register(string username, string password)
         {
-            throw new NotImplementedException();
+            User userObj = new User()
+            {
+                Username = username,
+                Password = password
+            };
+
+            _context.Users.Add(userObj);
+            _context.SaveChanges();
+            userObj.Password = "";
+            return userObj;
         }
 
         public User Authenticate(string username, string password)
@@ -59,7 +68,13 @@ namespace Park.Infra.Repository
 
         public bool IsUniqueUser(string username)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+
+            // return null if user not found
+            if (user == null)
+                return true;
+
+            return false;
         }   
     }
 }
