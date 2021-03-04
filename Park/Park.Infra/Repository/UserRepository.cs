@@ -28,7 +28,8 @@ namespace Park.Infra.Repository
             User userObj = new User()
             {
                 Username = username,
-                Password = password
+                Password = password,
+                Role = "Admin"
             };
 
             _context.Users.Add(userObj);
