@@ -69,6 +69,12 @@ namespace Park.Web.Controllers
                 return View();
             }
 
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, objUser.Username));
+            identity.AddClaim(new Claim(ClaimTypes.Role, objUser.Role));
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             HttpContext.Session.SetString("JWToken", objUser.Token);
             return RedirectToAction("Index");
         }
@@ -92,10 +98,18 @@ namespace Park.Web.Controllers
             return RedirectToAction("Login");
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync();
             HttpContext.Session.SetString("JWToken", "");
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
