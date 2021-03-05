@@ -76,6 +76,7 @@ namespace Park.Web.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             HttpContext.Session.SetString("JWToken", objUser.Token);
+            TempData["alert"] = "Welcome " + objUser.Username;
             return RedirectToAction("Index");
         }
 
@@ -94,7 +95,7 @@ namespace Park.Web.Controllers
             {
                 return View();
             }
-            
+            TempData["alert"] = "Registeration Successful";
             return RedirectToAction("Login");
         }
 
