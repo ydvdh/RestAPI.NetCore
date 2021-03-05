@@ -35,8 +35,8 @@ namespace Park.Web.Controllers
         {
             IndexVM listOfParksAndTrails = new IndexVM()
             {
-                NationalParkList = await _parkRepository.GetAllAsync(SD.NationalParkAPIPath),
-                TrailList = await _trailRepository.GetAllAsync(SD.TrailAPIPath),
+                NationalParkList = await _parkRepository.GetAllAsync(SD.NationalParkAPIPath, HttpContext.Session.GetString("JWToken")),
+                TrailList = await _trailRepository.GetAllAsync(SD.TrailAPIPath, HttpContext.Session.GetString("JWToken")),
             };
             return View(listOfParksAndTrails);
         }
@@ -90,6 +90,12 @@ namespace Park.Web.Controllers
             }
             
             return RedirectToAction("Login");
-        }       
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.SetString("JWToken", "");
+            return RedirectToAction("Index");
+        }
     }
 }

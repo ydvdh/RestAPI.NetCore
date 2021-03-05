@@ -24,7 +24,7 @@ namespace Park.Web.Controllers
         }
         public async Task<IActionResult> GetAllNationalPark()
         {
-            return Json(new { data = await _parkRepository.GetAllAsync(SD.NationalParkAPIPath)});
+            return Json(new { data = await _parkRepository.GetAllAsync(SD.NationalParkAPIPath, HttpContext.Session.GetString("JWToken")) });
         }
 
         public async Task<IActionResult> Upsert(int? id)
@@ -38,7 +38,7 @@ namespace Park.Web.Controllers
             }
 
             //Flow will come here for update
-            obj = await _parkRepository.GetAsync(SD.NationalParkAPIPath, id.GetValueOrDefault());
+            obj = await _parkRepository.GetAsync(SD.NationalParkAPIPath, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
             if (obj == null)
             {
                 return NotFound();
@@ -67,16 +67,16 @@ namespace Park.Web.Controllers
                 }
                 else
                 {
-                    var objFromDb = await _parkRepository.GetAsync(SD.NationalParkAPIPath, obj.Id);
+                    var objFromDb = await _parkRepository.GetAsync(SD.NationalParkAPIPath, obj.Id, HttpContext.Session.GetString("JWToken"));
                     obj.Picture = objFromDb.Picture;
                 }
                 if (obj.Id == 0)
                 {
-                    await _parkRepository.CreateAsync(SD.NationalParkAPIPath, obj);
+                    await _parkRepository.CreateAsync(SD.NationalParkAPIPath, obj, HttpContext.Session.GetString("JWToken"));
                 }
                 else
                 {
-                    await _parkRepository.UpdateAsync(SD.NationalParkAPIPath + obj.Id, obj);
+                    await _parkRepository.UpdateAsync(SD.NationalParkAPIPath + obj.Id, obj, HttpContext.Session.GetString("JWToken"));
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -89,7 +89,7 @@ namespace Park.Web.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _parkRepository.DeleteAsync(SD.NationalParkAPIPath, id);
+            var status = await _parkRepository.DeleteAsync(SD.NationalParkAPIPath, id, HttpContext.Session.GetString("JWToken"));
             if (status)
             {
                 return Json(new { success = true, message = "Delete Successful" });

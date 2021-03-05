@@ -20,11 +20,15 @@ namespace Park.Web.Repository
             _clientFactory = clientFactory;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(string url)
+        public async Task<IEnumerable<T>> GetAllAsync(string url, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 
-            var client = _clientFactory.CreateClient();           
+            var client = _clientFactory.CreateClient();
+            if (token != null && token.Length != 0)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             HttpResponseMessage response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -34,11 +38,15 @@ namespace Park.Web.Repository
             return null;
         }
 
-        public async Task<T> GetAsync(string url, int Id)
+        public async Task<T> GetAsync(string url, int Id, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url + Id);
 
-            var client = _clientFactory.CreateClient();           
+            var client = _clientFactory.CreateClient();
+            if (token != null && token.Length != 0)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             HttpResponseMessage response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -48,7 +56,7 @@ namespace Park.Web.Repository
             return null;
         }
 
-        public async Task<bool> CreateAsync(string url, T objToCreate)
+        public async Task<bool> CreateAsync(string url, T objToCreate, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url);
             if (objToCreate != null)
@@ -61,6 +69,10 @@ namespace Park.Web.Repository
             }
 
             var client = _clientFactory.CreateClient();
+            if (token != null && token.Length != 0)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             HttpResponseMessage response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.Created)
             {
@@ -71,7 +83,7 @@ namespace Park.Web.Repository
                 return false;
             }
         }
-        public async Task<bool> UpdateAsync(string url, T objToUpdate)
+        public async Task<bool> UpdateAsync(string url, T objToUpdate, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Patch, url);
             if (objToUpdate != null)
@@ -84,6 +96,10 @@ namespace Park.Web.Repository
             }
 
             var client = _clientFactory.CreateClient();
+            if (token != null && token.Length != 0)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             HttpResponseMessage response = await client.SendAsync(request);
             if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
             {
@@ -95,12 +111,16 @@ namespace Park.Web.Repository
             }
         }
 
-        public async Task<bool> DeleteAsync(string url, int Id)
+        public async Task<bool> DeleteAsync(string url, int Id, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, url + Id);
 
             var client = _clientFactory.CreateClient();
-            
+            if (token != null && token.Length != 0)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
             HttpResponseMessage response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.NoContent)
             {
